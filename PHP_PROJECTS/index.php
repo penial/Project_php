@@ -8,7 +8,7 @@
 </head>
 <body>
     <div style="background-color: sandybrown;background-size: 12px;margin-left:250px;margin-right:190px;margin-bottom:12px">
-        <form action="" method="POST">
+        <form action="index.php" method="POST">
             <div style="text-align: center;">
                  <h1 style="color:azure">COLLEGE INFORMATION </h1>
                                    <div id="name">
@@ -25,7 +25,7 @@
                                     </div>
                                     <div>
                                         <label for="department" style="font-size: 45px">Department</label><br>
-                                        <select id="department" name="department" style="width: 200px;font-size: 36px; height: 45px;">
+                                        <select  name="department" style="width: 200px;font-size: 36px; height: 45px;">
                                             <option value="IT" selected>IT</option>
                                             <option value="CSE" >CSE</option>
                                             <option value="ECE" >ECE</option>
@@ -38,10 +38,10 @@
                                     </div>
                                     <div>
                                         <label for="Gender" style="font-size: 45px">Gender</label><br>
-                                        <label for="male">male</label>
-                                        <input type="radio" value="radio" id="male" name="gender">
-                                        <label for="female">Female</label>
-                                        <input type="radio" value="female" name="gender">
+                                        <input type="radio"  name="gender" value="male" required>
+                                        <label>male</label>
+                                        <input type="radio" name="gender" value="female" required>
+                                        <label>Female</label>
                                     </div>
                                     <div>
                                         <label for="Blood" style="font-size: 45px">Blood Group</label><br>
@@ -68,7 +68,8 @@
 </html>
 
 <?php
-require 'database.php';
+session_start();
+include('database.php');
 
 if (isset($_POST['submit']))
 {
@@ -77,17 +78,28 @@ if (isset($_POST['submit']))
     $Address=$_POST["address"];
     $Department=$_POST["department"];
     $Phone_number=$_POST["number"];
-    $Gender=$_POST["gender"];
+    $Gen=$_POST["gender"];
     $Blood_Group=$_POST["Blood"];
 }
-$sql="INSERT INTO Staff VALUES('$username','$Date_of_joining','$Address','$Department','$Phone_number','$Gender','$Blood_Group')";
-if (mysqli_query($conn,$sql)==TRUE){
+$sql="INSERT INTO Staff VALUES('$username','$Date_of_joining','$Address','$Department','$Phone_number','$Gen','$Blood_Group')";
+
+$data=mysqli_query($conn,$sql);
+if($data){
     echo "Data inserted sucessfully";
 
 }
+else{
+    echo "$username";
+    echo "$Date_of_joining";
+    echo "$Address";
+    echo "$Department";
+    echo "$Phone_number";
+    echo "$Gen";
+    echo "$Blood_Group";
+
+}
 
 
-mysqli_close($conn);
 ?>
 
 

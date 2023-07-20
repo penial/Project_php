@@ -1,12 +1,20 @@
 <?php
-$db_server="localhost";
-$db_user="root";
-$db_pass="";
-$db_name="College";
+$dbuser='phpmyadmin';
+$dbpass='Charli007';
+$basepath='';
+$dbname='phpmyadmin';
+$dbserver='localhost';
+$dbport='3306';
+$dbtype='mysql';
 
-$conn=mysqli_connect($db_server,$db_user,$db_name);
+$conn=mysqli_connect($db_server,$db_user,$db_name,$dbpass,$dbport);
 
-
+if($conn){
+    echo "inserted successfully";
+}
+else{
+    echo "Database connection failed";
+}
 
 
 ?>
