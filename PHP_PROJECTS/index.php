@@ -1,6 +1,4 @@
-<?php
-include('database.php')
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +9,7 @@ include('database.php')
 </head>
 <body>
     <div style="background-color: sandybrown;background-size: 12px;margin-left:250px;margin-right:190px;margin-bottom:12px">
-        <form action="index.php" method="POST">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div style="text-align: center;">
                  <h1 style="color:azure">COLLEGE INFORMATION </h1>
                                    <div id="name">
@@ -67,6 +65,45 @@ include('database.php')
             </div>
         </form>
     </div>
+
+    
+                        <?php
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $dbname = "College";
+
+                    // Create connection
+                    $conn = mysqli_connect($servername, $username, $password, $dbname);
+                    // Check connection
+                    if (!$conn) {
+                        die("Connection failed: " . mysqli_connect_error());
+                    }
+
+                    // Get data from HTML form
+                    $name = $_POST['name'];
+                    $date_of_joining = $_POST['date_define'];
+                    $address = $_POST['address'];
+                    $department = $_POST['department'];
+                    $phone_number = $_POST['number'];
+                    $gender = $_POST['gender'];
+                    $blood_group = $_POST['Blood'];
+
+                    // Insert data into database
+                    $sql = "INSERT INTO Staff (name, date_of_joining, address, department, phone_number, gender, blood_group)
+                    VALUES ('$name', '$date_of_joining', '$address', '$department', '$phone_number', '$gender', '$blood_group')";
+
+                    if (mysqli_query($conn, $sql)) {
+                        echo "Data inserted successfully";
+                    } else {
+                        echo "Error: " . mysqli_error($conn);
+                    }
+
+                    // Close connection
+                    mysqli_close($conn);
+                    ?>
+
+
 </body>
 </html>
 
